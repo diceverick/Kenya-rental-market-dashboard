@@ -94,8 +94,8 @@ def e(x) -> str:
 def hero(source: str, updated: str, n: int, total: int) -> None:
     st.markdown(
         '<div class="hero"><div><div class="eyebrow">Property market analytics</div>'
-        '<div class="hero-t">Nairobi Real Estate<br><b>Market Intelligence</b></div>'
-        '<p>Asking rents across Nairobi and surrounding regions. Every figure is calculated '
+        '<div class="hero-t">Kenya Real Estate<br><b>Market Intelligence</b></div>'
+        '<p>Asking rents across Kenya. Every figure is calculated '
         'from the source dataset and responds to the filter panel.</p></div>'
         f'<div class="meta">Source<span>{e(source)}</span><br>Refreshed<span>{e(updated)}</span><br>'
         f'In view<span>{n:,} of {total:,} listings</span></div></div>', unsafe_allow_html=True)
@@ -103,7 +103,7 @@ def hero(source: str, updated: str, n: int, total: int) -> None:
 
 def page_head(title: str, desc: str, n: int, total: int) -> None:
     st.markdown(
-        f'<div class="hero"><div><div class="eyebrow">Nairobi real estate · market intelligence</div>'
+        f'<div class="hero"><div><div class="eyebrow">Kenya real estate · market intelligence</div>'
         f'<div class="hero-s">{e(title)}</div><p>{e(desc)}</p></div>'
         f'<div class="meta">In view<span>{n:,} of {total:,} listings</span></div></div>', unsafe_allow_html=True)
 

@@ -1,9 +1,9 @@
-"""Nairobi Real Estate Market Intelligence · launch with: streamlit run app.py"""
+"""Kenya Real Estate Market Intelligence · launch with: streamlit run app.py"""
 from datetime import datetime
 
 import streamlit as st
 
-st.set_page_config(page_title="Nairobi Real Estate · Market Intelligence", layout="wide",
+st.set_page_config(page_title="Kenya Real Estate · Market Intelligence", layout="wide",
                    initial_sidebar_state="expanded")
 
 import data as D  # noqa: E402

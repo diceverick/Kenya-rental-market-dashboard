@@ -320,4 +320,4 @@ def explorer(df, full, meta):
            "Outlier": st.column_config.CheckboxColumn("Flagged outlier"), NB: "Neighbourhood", CITY: "Region"}
     st.dataframe(d, hide_index=True, width="stretch", height=560, column_config=cfg)
     st.download_button("Download filtered data (CSV)", d.to_csv(index=False).encode("utf-8"),
-                       file_name="nairobi_rentals_filtered.csv", mime="text/csv", disabled=d.empty)
+                       file_name="kenya_rentals_filtered.csv", mime="text/csv", disabled=d.empty)
