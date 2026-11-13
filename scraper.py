@@ -1,7 +1,10 @@
 import re
-import pandas as pd
+
+import pandas as pd #the data manipulator
+
 from playwright.sync_api import sync_playwright
-from bs4 import BeautifulSoup
+
+from bs4 import BeautifulSoup#the HTML parser
 
 print("--- BuyRentKenya Universal Rental Scraper ---")
 print("Press Enter on any prompt to search EVERYTHING in that category.")
@@ -17,14 +20,14 @@ if user_category == "commercial":
 elif user_category not in ["bedsitter", "commercial"]:
     user_bedrooms = input("Enter bedrooms (e.g., 2) [Press Enter for ALL]: ").strip()
 
-category_map = {
+category_map = {  #the dictionary thats used in da url slug just here below
     "house": "houses-for-rent", 
     "apartment": "flats-apartments-for-rent",
     "commercial": "commercial-property-for-rent",
     "bedsitter": "bedsitters-for-rent"
-}
+}  
 
-url_slug = category_map.get(user_category, "property-for-rent")
+url_slug = category_map.get(user_category, "property-for-rent")  #.get helps incase the user types nonesense it just defaults to default
 BASE_URL = f"https://www.buyrentkenya.com/{url_slug}"
 
 if user_location:
@@ -60,7 +63,7 @@ with sync_playwright() as p:
         
         try:
             page.wait_for_selector("article", timeout=60000)
-            page.wait_for_timeout(2000) 
+            page.wait_for_timeout(2000)
         except:
             print(f"ERROR: No properties appeared after 60 seconds on page {page_num}.")
                 
@@ -118,6 +121,7 @@ with sync_playwright() as p:
                 city = "Unknown"
                 
                 if " in " in title:
+                    
                     loc_string = title.split(" in ")[-1].strip() 
                     loc_parts = loc_string.split(",")
                     
@@ -149,5 +153,6 @@ if len(scraped_data) > 0:
     df = pd.DataFrame(scraped_data)
     df.to_excel("buyrent_rentals_data.xlsx", index=False)
     print("\nTask complete. All data exported cleanly to buyrent_rentals_data.xlsx!")
+
 else:
     print("\nNo data found. Excel file was not created.")

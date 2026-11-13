@@ -1,2 +1,5 @@
-playwright==1.42.0
-beautifulsoup4==4.12.3
+streamlit>=1.50
+pandas>=2.0
+numpy
+openpyxl
+plotly>=5.20
