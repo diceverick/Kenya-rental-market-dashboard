@@ -1,10 +1,10 @@
-# Nairobi Rental Market Intelligence
+# Kenya Rental Market Intelligence
 
-An interactive dashboard for exploring asking rents across Nairobi and surrounding regions. The data is collected from property listings with a Python scraper, cleaned with pandas and presented in a multi-page Streamlit app with Plotly charts.
+An interactive dashboard for exploring asking rents across Kenya. The data is collected from property listings with a Python scraper, cleaned with pandas and presented in a multi-page Streamlit app with Plotly charts.
 
-**Live app:** <paste your streamlit.app link here>
+**Live app:** https://kenyarentalmarketdashboard.streamlit.app/
 
-![Dashboard screenshot](docs/overview.png)
+![Dashboard screenshot](images/uno.png)
 
 ## What it does
 
