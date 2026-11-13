@@ -13,7 +13,7 @@ DATA_FILE = "buyrent_rentals_data.xlsx"
 PRICE, BEDS, SIZE = "Price (KSh)", "Bedrooms", "Size (sq ft)"
 CITY, NB, PPSF = "City", "Neighborhood", "KSh per sq ft"
 REQUIRED = [PRICE, BEDS, CITY, NB]
-OUTLIER_Z = 4.0          # modified z-score threshold on log-rent
+OUTLIER_Z = 3.0          # modified z-score threshold on log-rent
 MIN_LOCAL_GROUP = 15     # bedroom groups smaller than this use the global baseline
 INTERNAL = ["Area", "BedLabel", "OutlierZ"]
 
@@ -91,7 +91,7 @@ def _category(df: pd.DataFrame) -> tuple[pd.Series, bool]:
 
 def _flag_outliers(df: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
     """Modified z-score (MAD) on log-rent, within bedroom group when the group
-    is large enough, otherwise against the whole dataset. Two-sided."""
+    is large enough, otherwise against the whole dataset. Plus a sanity cap."""
     lp = np.log(df[PRICE])
     key = df[BEDS].fillna(-1)
     n = lp.groupby(key).transform("size")
@@ -102,7 +102,11 @@ def _flag_outliers(df: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
     small = n < MIN_LOCAL_GROUP
     med, mad = med.where(~small, g_med), mad.where(~small, g_mad)
     z = 0.6745 * (lp - med) / mad.where(mad > 0)
-    return z.abs().gt(OUTLIER_Z), z
+    
+    # Flag if it fails the tighter math OR if it's over 1.5M KSh (obviously a sale price)
+    is_outlier = z.abs().gt(OUTLIER_Z) | df[PRICE].gt(1500000)
+    
+    return is_outlier, z
 
 
 @st.cache_data(show_spinner="Loading dataset…")
